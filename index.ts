@@ -17,7 +17,7 @@ console.log(
 `)
 );
 
-function sleep() {
+async function sleep() {
   return new Promise((res) => {
     setTimeout(res, 1000);
   });
@@ -101,7 +101,13 @@ async function getData() {
       {
         name: "again",
         type: "input",
-        message: "Do you want to calculate the again then press 'y' ",
+        message: "Press 'y' to calculate again otherwise Press 'n'  ",
+        validate: (ans) => {
+          if (ans === "y" || ans === "n") {
+            return true;
+          }
+          return false;
+        },
       },
     ]);
   } while (repeat.again === "y");
