@@ -1,5 +1,29 @@
 #! /usr/bin/env node
 import inquirer from "inquirer";
+import chalk from "chalk";
+import chalkAnimation from "chalk-animation";
+console.log(chalk.blue(`
+  | ________ |
+  ||12345678||
+  |""""""""""|
+  |[M|#|C][-]|
+  |[7|8|9][+]|
+  |[4|5|6][x]|
+  |[1|2|3][%]|
+  |[.|O|:][=]|
+  "----------" 
+`));
+function sleep() {
+    return new Promise((res) => {
+        setTimeout(res, 1000);
+    });
+}
+async function welcome() {
+    const rainbow = chalkAnimation.rainbow("Lets do some calculation");
+    await sleep();
+    rainbow.stop();
+}
+await welcome();
 async function getData() {
     let questions = [
         {
@@ -12,11 +36,23 @@ async function getData() {
             name: "num1",
             message: "Enter First number",
             type: "number",
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                    return "Please Enter a valid number";
+                }
+                return true;
+            },
         },
         {
             name: "num2",
             message: "Enter Second number",
             type: "number",
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                    return "Please Enter a valid number";
+                }
+                return true;
+            },
         },
     ];
     let answers = await inquirer.prompt(questions);
